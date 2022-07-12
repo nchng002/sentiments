@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/sentiments/static/css/main.afa1d4b9.css",
+    "main.js": "/sentiments/static/js/main.aa430fda.js",
+    "index.html": "/sentiments/index.html",
+    "main.afa1d4b9.css.map": "/sentiments/static/css/main.afa1d4b9.css.map",
+    "main.aa430fda.js.map": "/sentiments/static/js/main.aa430fda.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.afa1d4b9.css",
+    "static/js/main.aa430fda.js"
+  ]
+}
