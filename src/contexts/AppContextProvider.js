@@ -5,8 +5,6 @@ const baseUrl = 'https://text-analysis12.p.rapidapi.com/sentiment-analysis/api/v
 
 export const AppContextProvider = ({ children }) => {
     const [userText, setUserText] = useState("")
-    const [lightness, setLightness] = useState()
-    const [textColour, setTextColour] = useState()
 
     const getLightness = async () => {
         const response = await fetch(baseUrl, {
@@ -22,28 +20,28 @@ export const AppContextProvider = ({ children }) => {
             })
         })
 
-        try {
-            const responseData = await response.json()
-            let bg = ((responseData.aggregate_sentiment.compound + 1) / 2) * 100
-            let colour
-            if (bg > 50) {
-                colour = 0
-            } else {
-                colour = 100
-            }
-            setLightness(bg)
-            setTextColour(colour)
-        } catch (error) {
-            setLightness(50)
-            setTextColour(0)
-        }
+        const responseData = await response.json()
 
+        if (responseData.ok) {
+            const bg = ((responseData.aggregate_sentiment.compound + 1) / 2) * 100
+            document.body.style.background = `hsl(0, 0%, ${bg}%)`
+
+            let textColour
+            if (bg > 50) {
+                textColour = 0
+            } else {
+                textColour = 100
+            }
+
+            document.getElementById('js-textarea-userintput').style.color = `hsl(0, 0%, ${textColour}%)`
+        }
     }
+
     getLightness()
 
 
     return (
-        <AppContext.Provider value={{ setUserText, lightness, textColour }}>
+        <AppContext.Provider value={{ setUserText }}>
             {children}
         </AppContext.Provider>
     )

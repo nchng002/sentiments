@@ -5,17 +5,15 @@ import { useAppContext } from '../contexts/AppContextProvider'
 
 const UserInput = () => {
   const [input, setInput] = useState("")
-  const { lightness, setUserText, textColour } = useAppContext()
+  const { setUserText } = useAppContext()
   const [debounceValue] = useDebounce(input, 300)
-
-  const hslBg = `hsl(0, 0%, ${lightness}%)`
-  const hslTextColour = `hsl(0, 0%, ${textColour}%)`
 
   const increaseTextAreaHeight = (e) => {
     const height = document.getElementById('js-textarea-userintput').offsetHeight
 
     if (e.target.value === '') {
       document.getElementById('js-textarea-userintput').style.height = '100px'
+      setUserText('')
     } else if (e.key === 'Enter') {
       document.getElementById('js-textarea-userintput').style.height = `${height + 30}px`
     } else {
@@ -37,9 +35,8 @@ const UserInput = () => {
       <textarea
         className='container textarea--mods'
         value={input}
-        onChange={(e) => { setInput(e.target.value); increaseTextAreaHeight(e); document.body.style.background = hslBg }}
+        onChange={(e) => { setInput(e.target.value); increaseTextAreaHeight(e) }}
         onKeyPress={(e) => increaseTextAreaHeight(e)}
-        style={{ 'color': hslTextColour, '--placeholder-color': hslTextColour }}
         placeholder='Type something...'
         id='js-textarea-userintput'
       >
